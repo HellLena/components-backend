@@ -1,5 +1,6 @@
 package org.example.components.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.example.components.model.create.FootprintCreateDto;
 import org.example.components.service.FootprintService;
@@ -18,6 +19,7 @@ public class FootprintController {
     private final FootprintService footprintService;
 
     @PostMapping
+    @Operation(summary = "Создать посадочное место (footprint)")
     public void createFootprint(@RequestBody @Valid FootprintCreateDto footprintCreateDto) {
         footprintService.createFootprint(footprintCreateDto);
     }

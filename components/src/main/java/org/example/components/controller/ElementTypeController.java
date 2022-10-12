@@ -1,5 +1,6 @@
 package org.example.components.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.example.components.model.create.ElementTypeCreateDto;
 import org.example.components.model.create.UnitCreateDto;
@@ -20,6 +21,7 @@ public class ElementTypeController {
     private final ElementTypeService elementTypeService;
 
     @PostMapping
+    @Operation(summary = "Создать тип элемента")
     public void createElementType(@RequestBody @Valid ElementTypeCreateDto elementTypeCreateDto) {
         elementTypeService.createElementType(elementTypeCreateDto);
     }

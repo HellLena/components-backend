@@ -1,5 +1,6 @@
 package org.example.components.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.example.components.model.create.ManufacturerCreateDto;
 import org.example.components.service.ManufacturerService;
@@ -18,6 +19,7 @@ public class ManufacturerController {
     private final ManufacturerService manufacturerService;
 
     @PostMapping
+    @Operation(summary = "Создать производителя")
     public void createManufacturer(@RequestBody @Valid ManufacturerCreateDto manufacturerCreateDto) {
         manufacturerService.createManufacturer(manufacturerCreateDto);
     }

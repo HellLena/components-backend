@@ -1,5 +1,6 @@
 package org.example.components.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.example.components.model.UnitDto;
 import org.example.components.model.create.UnitCreateDto;
@@ -19,11 +20,13 @@ public class UnitController {
     private final UnitService unitService;
 
     @PostMapping
+    @Operation(summary = "Создать сборочную единицу")
     public void createUnit(@RequestBody @Valid UnitCreateDto unitCreateDto) {
         unitService.createUnit(unitCreateDto);
     }
 
     @GetMapping
+    @Operation(summary = "Получить список всех сборочных единиц постранично")
     public List<UnitListDto> getUnits(@RequestParam("_start") int page,
                                       @RequestParam("_end") int pageSize,
                                       @RequestParam("_sort") String sortBy,
@@ -33,11 +36,13 @@ public class UnitController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Получить сборочную единицу по id")
     public UnitDto getUnit(@RequestParam("id") Long unitId) {
         return unitService.getUnit(unitId);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Обновить сборочную единицу")
     public void updateUnit(@RequestParam("id") Long unitId,
                            @RequestBody @Valid UnitCreateDto unitCreateDto
     ) {
@@ -45,6 +50,7 @@ public class UnitController {
     }
 
     @PostMapping("/{id}/bom-upload")
+    @Operation(summary = "Загрузить BoM файл для сборочной единицы")
     public void uploadBomFile(@RequestParam("id") Long unitId,
                               @RequestParam("file") MultipartFile file
     ) {
