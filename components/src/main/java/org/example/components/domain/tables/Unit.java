@@ -22,7 +22,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Unit extends TableImpl<UnitRecord> {
 
-    private static final long serialVersionUID = -150208711;
+    private static final long serialVersionUID = -1708955968;
 
     /**
      * The reference instance of <code>public.unit</code>
@@ -45,7 +45,7 @@ public class Unit extends TableImpl<UnitRecord> {
     /**
      * The column <code>public.unit.unit_type_id</code>.
      */
-    public final TableField<UnitRecord, Integer> UNIT_TYPE_ID = createField(DSL.name("unit_type_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<UnitRecord, Long> UNIT_TYPE_ID = createField(DSL.name("unit_type_id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.unit.decimal_name</code>.
@@ -63,19 +63,19 @@ public class Unit extends TableImpl<UnitRecord> {
     public final TableField<UnitRecord, LocalDateTime> UPDATED_AT = createField(DSL.name("updated_at"), org.jooq.impl.SQLDataType.LOCALDATETIME, this, "");
 
     /**
-     * The column <code>public.unit.bomfiledata</code>.
+     * The column <code>public.unit.bom_file_data</code>.
      */
-    public final TableField<UnitRecord, String> BOMFILEDATA = createField(DSL.name("bomfiledata"), org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<UnitRecord, String> BOM_FILE_DATA = createField(DSL.name("bom_file_data"), org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
-     * The column <code>public.unit.bomfilename</code>.
+     * The column <code>public.unit.bom_file_name</code>.
      */
-    public final TableField<UnitRecord, String> BOMFILENAME = createField(DSL.name("bomfilename"), org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
+    public final TableField<UnitRecord, String> BOM_FILE_NAME = createField(DSL.name("bom_file_name"), org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>public.unit.bomstatus</code>.
+     * The column <code>public.unit.bom_file_status</code>.
      */
-    public final TableField<UnitRecord, String> BOMSTATUS = createField(DSL.name("bomstatus"), org.jooq.impl.SQLDataType.VARCHAR(25), this, "");
+    public final TableField<UnitRecord, String> BOM_FILE_STATUS = createField(DSL.name("bom_file_status"), org.jooq.impl.SQLDataType.VARCHAR(25), this, "");
 
     /**
      * Create a <code>public.unit</code> table reference
@@ -170,7 +170,7 @@ public class Unit extends TableImpl<UnitRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<Long, Integer, String, LocalDateTime, LocalDateTime, String, String, String> fieldsRow() {
+    public Row8<Long, Long, String, LocalDateTime, LocalDateTime, String, String, String> fieldsRow() {
         return (Row8) super.fieldsRow();
     }
 }

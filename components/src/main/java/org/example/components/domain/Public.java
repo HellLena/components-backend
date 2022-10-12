@@ -4,14 +4,21 @@
 package org.example.components.domain;
 
 
-import org.example.components.domain.tables.*;
+import java.util.Arrays;
+import java.util.List;
+
+import org.example.components.domain.tables.Bom;
+import org.example.components.domain.tables.Element;
+import org.example.components.domain.tables.ElementType;
+import org.example.components.domain.tables.FlywaySchemaHistory;
+import org.example.components.domain.tables.Footprint;
+import org.example.components.domain.tables.Manufacturer;
+import org.example.components.domain.tables.Unit;
+import org.example.components.domain.tables.UnitType;
 import org.jooq.Catalog;
 import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
-
-import java.util.Arrays;
-import java.util.List;
 
 
 /**

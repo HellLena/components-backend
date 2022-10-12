@@ -4,7 +4,14 @@
 package org.example.components.domain;
 
 
-import org.example.components.domain.tables.*;
+import org.example.components.domain.tables.Bom;
+import org.example.components.domain.tables.Element;
+import org.example.components.domain.tables.ElementType;
+import org.example.components.domain.tables.FlywaySchemaHistory;
+import org.example.components.domain.tables.Footprint;
+import org.example.components.domain.tables.Manufacturer;
+import org.example.components.domain.tables.Unit;
+import org.example.components.domain.tables.UnitType;
 
 
 /**

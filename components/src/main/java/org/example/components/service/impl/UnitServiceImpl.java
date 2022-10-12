@@ -1,7 +1,7 @@
 package org.example.components.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.components.enumerations.BomStatus;
+import org.example.components.enumerations.BomFileStatus;
 import org.example.components.handler.ParserHandlerFactory;
 import org.example.components.model.UnitDto;
 import org.example.components.model.create.UnitCreateDto;
@@ -52,13 +52,13 @@ public class UnitServiceImpl implements UnitService {
     @Override
     public void uploadBomFile(Long unitId, MultipartFile file) {
         String filePath = fileService.uploadFile(BOM_DIRECTORY, file);
-        unitRepository.updateBomFile(unitId, filePath, file.getName(), BomStatus.NEW);
+        unitRepository.updateBomFile(unitId, filePath, file.getName(), BomFileStatus.NEW);
         parseFile(unitId, file);
     }
 
     @Async
     private void parseFile(Long unitId, MultipartFile file) {
-        unitRepository.updateBomFileStatus(unitId, BomStatus.PROCESSING);
+        unitRepository.updateBomFileStatus(unitId, BomFileStatus.PROCESSING);
 
         List<BomFileData> bomFileData = fileService.parseFile(file, BomFileData.class);
         BomDataWrapper dataWrapper = new BomDataWrapper(unitId, bomFileData);

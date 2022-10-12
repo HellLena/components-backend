@@ -5,13 +5,13 @@ create table unit_type (
 
 create table unit (
     id bigserial primary key,
-    unit_type_id int not null,
+    unit_type_id bigint not null,
     decimal_name varchar(100) unique not null,
     created_at timestamp not null default current_timestamp,
     updated_at timestamp,
-    bomFileData varchar(255),
-    bomFileName varchar(100),
-    bomStatus varchar(25),
+    bom_file_data varchar(255),
+    bom_file_name varchar(100),
+    bom_file_status varchar(25),
     foreign key (unit_type_id) references unit_type(id)
 );
 
@@ -35,8 +35,8 @@ create table footprint (
 
 create table "element" (
     id bigserial primary key,
-    element_type_id int not null,
-    manufacturer_id int,
+    element_type_id bigint not null,
+    manufacturer_id bigint,
     manufacturer_number varchar(100),
     description text not null,
     status varchar(100) not null default 'MODERATION',
@@ -50,10 +50,10 @@ create index idx_gin_description
 
 create table "bom" (
     id bigserial primary key,
-    unit_id int not null,
+    unit_id bigint not null,
     designator varchar(10) not null,
-    element_id int not null,
-    footprint_id int,
+    element_id bigint not null,
+    footprint_id bigint,
     quantity int not null,
     fitted boolean not null,
     can_be_replaced boolean not null,

@@ -21,7 +21,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Element extends TableImpl<ElementRecord> {
 
-    private static final long serialVersionUID = -813069836;
+    private static final long serialVersionUID = 2015017060;
 
     /**
      * The reference instance of <code>public.element</code>
@@ -44,12 +44,12 @@ public class Element extends TableImpl<ElementRecord> {
     /**
      * The column <code>public.element.element_type_id</code>.
      */
-    public final TableField<ElementRecord, Integer> ELEMENT_TYPE_ID = createField(DSL.name("element_type_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ElementRecord, Long> ELEMENT_TYPE_ID = createField(DSL.name("element_type_id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.element.manufacturer_id</code>.
      */
-    public final TableField<ElementRecord, Integer> MANUFACTURER_ID = createField(DSL.name("manufacturer_id"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<ElementRecord, Long> MANUFACTURER_ID = createField(DSL.name("manufacturer_id"), org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.element.manufacturer_number</code>.
@@ -163,7 +163,7 @@ public class Element extends TableImpl<ElementRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<Long, Integer, Integer, String, String, String> fieldsRow() {
+    public Row6<Long, Long, Long, String, String, String> fieldsRow() {
         return (Row6) super.fieldsRow();
     }
 }

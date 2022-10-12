@@ -27,10 +27,10 @@ public class UnitController {
 
     @GetMapping
     @Operation(summary = "Получить список всех сборочных единиц постранично")
-    public List<UnitListDto> getUnits(@RequestParam("_start") int page,
-                                      @RequestParam("_end") int pageSize,
-                                      @RequestParam("_sort") String sortBy,
-                                      @RequestParam("_order") String orderBy
+    public List<UnitListDto> getUnits(@RequestParam(value = "_start", required = false, defaultValue = "0") int page,
+                                      @RequestParam(value = "_end", required = false, defaultValue = "10") int pageSize,
+                                      @RequestParam(value = "_sort", required = false) String sortBy,
+                                      @RequestParam(value = "_order", required = false) String orderBy
     ) {
         return unitService.getUnits(page, pageSize, sortBy, orderBy);
     }

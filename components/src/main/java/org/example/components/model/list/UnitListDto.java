@@ -1,17 +1,23 @@
 package org.example.components.model.list;
 
 import lombok.AllArgsConstructor;
-import org.example.components.enumerations.BomStatus;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.example.components.enumerations.BomFileStatus;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class UnitListDto {
 
     private Long id;
     private String unitType;
     private String decimalName;
-    private BomStatus bomStatus;
+    private BomFileStatus bomFileStatus;
     private LocalDateTime createdAt;
 
 }

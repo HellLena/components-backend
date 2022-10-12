@@ -21,7 +21,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Bom extends TableImpl<BomRecord> {
 
-    private static final long serialVersionUID = -1033804350;
+    private static final long serialVersionUID = 1491123997;
 
     /**
      * The reference instance of <code>public.bom</code>
@@ -44,7 +44,7 @@ public class Bom extends TableImpl<BomRecord> {
     /**
      * The column <code>public.bom.unit_id</code>.
      */
-    public final TableField<BomRecord, Integer> UNIT_ID = createField(DSL.name("unit_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<BomRecord, Long> UNIT_ID = createField(DSL.name("unit_id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.bom.designator</code>.
@@ -54,12 +54,12 @@ public class Bom extends TableImpl<BomRecord> {
     /**
      * The column <code>public.bom.element_id</code>.
      */
-    public final TableField<BomRecord, Integer> ELEMENT_ID = createField(DSL.name("element_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<BomRecord, Long> ELEMENT_ID = createField(DSL.name("element_id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.bom.footprint_id</code>.
      */
-    public final TableField<BomRecord, Integer> FOOTPRINT_ID = createField(DSL.name("footprint_id"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<BomRecord, Long> FOOTPRINT_ID = createField(DSL.name("footprint_id"), org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.bom.quantity</code>.
@@ -182,7 +182,7 @@ public class Bom extends TableImpl<BomRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<Long, Integer, String, Integer, Integer, Integer, Boolean, Boolean, String> fieldsRow() {
+    public Row9<Long, Long, String, Long, Long, Integer, Boolean, Boolean, String> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 }
