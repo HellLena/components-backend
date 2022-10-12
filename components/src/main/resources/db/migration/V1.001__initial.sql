@@ -7,7 +7,7 @@ create table unit (
     id bigserial primary key,
     unit_type_id int not null,
     decimal_name varchar(100) unique not null,
-    created_at timestamp not null default current_timestamp(),
+    created_at timestamp not null default current_timestamp,
     updated_at timestamp,
     bomFileData varchar(255),
     bomFileName varchar(100),
@@ -18,19 +18,19 @@ create table unit (
 create table element_type (
     id bigserial primary key,
     "name" varchar(100) unique not null,
-    status varchar(100) not null default "MODERATION"
+    status varchar(100) not null default 'MODERATION'
 );
 
 create table manufacturer (
     id bigserial primary key,
     "name" varchar(100) unique not null,
-    status varchar(100) not null default "MODERATION"
+    status varchar(100) not null default 'MODERATION'
 );
 
 create table footprint (
     id bigserial primary key,
     "name" varchar(100) unique not null,
-    status varchar(100) not null default "MODERATION"
+    status varchar(100) not null default 'MODERATION'
 );
 
 create table "element" (
@@ -39,7 +39,7 @@ create table "element" (
     manufacturer_id int,
     manufacturer_number varchar(100),
     description text not null,
-    status varchar(100) not null default "MODERATION",
+    status varchar(100) not null default 'MODERATION',
     unique (manufacturer_number, description),
     foreign key (element_type_id) references element_type(id),
     foreign key (manufacturer_id) references manufacturer(id)
