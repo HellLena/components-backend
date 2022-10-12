@@ -23,6 +23,7 @@
         <lombok.version>1.18.24</lombok.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
         <springdoc.version>1.6.11</springdoc.version>
+        <opencsv.version>5.7.0</opencsv.version>
     </properties>
 
     <dependencies>
@@ -90,6 +91,13 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>${apache.poi.version}</version>
+        </dependency>
+
+        <!-- CSV -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
         </dependency>
 
         <!-- Dev tools -->
@@ -204,7 +212,7 @@
                                     <records>true</records>
                                 </generate>
                                 <target>
-                                    <packageName>com.example.components</packageName>
+                                    <packageName>org.example.components.domain</packageName>
                                     <directory>src/main/java</directory>
                                 </target>
                             </generator>

@@ -14,5 +14,8 @@ logging:
   level:
     org.jooq: DEBUG
 
+storage:
+  path: "storage/"
+
 frontend:
   url: http://localhost:3000/

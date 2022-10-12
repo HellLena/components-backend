@@ -1,4 +1,4 @@
-package org.example.components.controller;
+package org.example.components.controller.advice;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
