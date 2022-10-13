@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -53,9 +54,10 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public void uploadBomFile(Long unitId, MultipartFile file) {
+        // TODO: add validation that file has .csv format
         String filePath = fileService.uploadFile(BOM_DIRECTORY, file);
-        log.debug("File '{}' for unit id={} was stored in path: {}", file.getName(), unitId, filePath);
-        unitRepository.updateBomFile(unitId, filePath, file.getName(), BomFileStatus.NEW);
+        log.debug("File '{}' for unit id={} was stored in path: {}", file.getOriginalFilename(), unitId, filePath);
+        unitRepository.updateBomFile(unitId, filePath, file.getOriginalFilename(), BomFileStatus.NEW);
         parseFile(unitId, file);
     }
 
@@ -64,7 +66,7 @@ public class UnitServiceImpl implements UnitService {
         unitRepository.updateBomFileStatus(unitId, BomFileStatus.PROCESSING);
 
         try {
-            log.debug("Parsing started for unit id={}, file: {}", unitId, file.getName());
+            log.debug("Parsing started for unit id={}, file: {}", unitId, file.getOriginalFilename());
             List<BomFileData> bomFileData = fileService.parseFile(file, BomFileData.class);
             BomDataWrapper dataWrapper = new BomDataWrapper(unitId, bomFileData);
             parserHandlerFactory.getHandlers(BomDataWrapper.class)
@@ -75,5 +77,7 @@ public class UnitServiceImpl implements UnitService {
             log.error("Error occurred while handling BOM file: ", e);
             unitRepository.updateBomFileStatus(unitId, BomFileStatus.FAILED);
         }
+
+        unitRepository.updateBomFileStatus(unitId);
     }
 }

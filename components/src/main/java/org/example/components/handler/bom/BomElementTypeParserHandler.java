@@ -2,6 +2,7 @@ package org.example.components.handler.bom;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.example.components.handler.ParserHandler;
 import org.example.components.model.create.ElementTypeCreateDto;
 import org.example.components.model.parser.BomDataWrapper;
@@ -32,6 +33,8 @@ public class BomElementTypeParserHandler implements ParserHandler<BomDataWrapper
 
         Set<ElementTypeCreateDto> elementTypes = dataWrapper.getData().stream()
                 .map(BomFileData::getBomType)
+                .filter(StringUtils::isNotBlank)
+                .map(String::trim)
                 .map(ElementTypeCreateDto::new)
                 .collect(Collectors.toSet());
 

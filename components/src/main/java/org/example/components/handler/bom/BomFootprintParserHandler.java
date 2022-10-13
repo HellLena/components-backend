@@ -2,6 +2,7 @@ package org.example.components.handler.bom;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.example.components.handler.ParserHandler;
 import org.example.components.model.create.FootprintCreateDto;
 import org.example.components.model.parser.BomDataWrapper;
@@ -32,6 +33,8 @@ public class BomFootprintParserHandler implements ParserHandler<BomDataWrapper> 
 
         Set<FootprintCreateDto> footprints = dataWrapper.getData().stream()
                 .map(BomFileData::getFootprint)
+                .filter(StringUtils::isNotBlank)
+                .map(String::trim)
                 .map(FootprintCreateDto::new)
                 .collect(Collectors.toSet());
 

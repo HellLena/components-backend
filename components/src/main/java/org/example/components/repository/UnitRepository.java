@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.example.components.domain.Tables.UNIT;
-import static org.example.components.domain.Tables.UNIT_TYPE;
+import static org.example.components.domain.Tables.*;
+import static org.example.components.enumerations.CommonStatus.MODERATION;
 
 @Repository
 @RequiredArgsConstructor
@@ -71,5 +71,10 @@ public class UnitRepository {
                 .set(UNIT.UPDATED_AT, LocalDateTime.now())
                 .where(UNIT.ID.eq(unitId))
                 .execute();
+    }
+
+    public void updateBomFileStatus(Long unitId) {
+        boolean existsModerationRows = context.fetchExists(BOM, BOM.STATUS.eq(MODERATION.name()));
+        updateBomFileStatus(unitId, existsModerationRows ? BomFileStatus.MODERATION : BomFileStatus.APPROVED);
     }
 }
