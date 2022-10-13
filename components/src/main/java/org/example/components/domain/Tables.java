@@ -7,7 +7,6 @@ package org.example.components.domain;
 import org.example.components.domain.tables.Bom;
 import org.example.components.domain.tables.Element;
 import org.example.components.domain.tables.ElementType;
-import org.example.components.domain.tables.FlywaySchemaHistory;
 import org.example.components.domain.tables.Footprint;
 import org.example.components.domain.tables.Manufacturer;
 import org.example.components.domain.tables.Unit;
@@ -34,11 +33,6 @@ public class Tables {
      * The table <code>public.element_type</code>.
      */
     public static final ElementType ELEMENT_TYPE = ElementType.ELEMENT_TYPE;
-
-    /**
-     * The table <code>public.flyway_schema_history</code>.
-     */
-    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.footprint</code>.

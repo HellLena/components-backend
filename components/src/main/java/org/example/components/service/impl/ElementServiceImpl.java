@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.example.components.model.ElementDto;
 import org.example.components.model.ElementKey;
 import org.example.components.model.create.ElementCreateDto;
+import org.example.components.model.list.ElementListDto;
 import org.example.components.repository.ElementRepository;
 import org.example.components.service.ElementService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,8 +19,8 @@ public class ElementServiceImpl implements ElementService {
     private final ElementRepository elementRepository;
 
     @Override
-    public void createElement(ElementCreateDto elementCreateDto) {
-        elementRepository.create(elementCreateDto);
+    public void createElement(ElementCreateDto dto) {
+        elementRepository.create(dto);
     }
 
     @Override
@@ -30,5 +32,20 @@ public class ElementServiceImpl implements ElementService {
         ElementDto elementTypeDto = elementRepository.findByKey(elementKey);
         elements.put(elementKey, elementTypeDto);
         return elementTypeDto;
+    }
+
+    @Override
+    public void update(Long elementTypeId, ElementCreateDto dto) {
+        elementRepository.update(elementTypeId, dto);
+    }
+
+    @Override
+    public ElementDto findById(Long elementTypeId) {
+        return elementRepository.findById(elementTypeId);
+    }
+
+    @Override
+    public List<ElementListDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
+        return elementRepository.findAllPaged(page, pageSize, sortBy, orderBy);
     }
 }

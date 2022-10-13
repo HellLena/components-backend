@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface UnitService {
 
-    void createUnit(UnitCreateDto unitCreateDto);
+    void create(UnitCreateDto dto);
 
-    List<UnitListDto> getUnits(int page, int pageSize, String sortBy, String orderBy);
+    List<UnitListDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy);
 
-    UnitDto getUnit(Long unitId);
+    UnitDto getById(Long unitId);
 
-    void updateUnit(Long unitId, UnitCreateDto unitCreateDto);
+    void update(Long unitId, UnitCreateDto dto);
 
     void uploadBomFile(Long unitId, MultipartFile file);
 }

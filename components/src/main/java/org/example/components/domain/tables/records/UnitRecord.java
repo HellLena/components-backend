@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UnitRecord extends UpdatableRecordImpl<UnitRecord> implements Record8<Long, Long, String, LocalDateTime, LocalDateTime, String, String, String> {
 
-    private static final long serialVersionUID = -1787689874;
+    private static final long serialVersionUID = 2091216433;
 
     /**
      * Setter for <code>public.unit.id</code>.
@@ -93,16 +93,16 @@ public class UnitRecord extends UpdatableRecordImpl<UnitRecord> implements Recor
     }
 
     /**
-     * Setter for <code>public.unit.bom_file_data</code>.
+     * Setter for <code>public.unit.bom_file</code>.
      */
-    public void setBomFileData(String value) {
+    public void setBomFile(String value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>public.unit.bom_file_data</code>.
+     * Getter for <code>public.unit.bom_file</code>.
      */
-    public String getBomFileData() {
+    public String getBomFile() {
         return (String) get(5);
     }
 
@@ -184,7 +184,7 @@ public class UnitRecord extends UpdatableRecordImpl<UnitRecord> implements Recor
 
     @Override
     public Field<String> field6() {
-        return Unit.UNIT.BOM_FILE_DATA;
+        return Unit.UNIT.BOM_FILE;
     }
 
     @Override
@@ -224,7 +224,7 @@ public class UnitRecord extends UpdatableRecordImpl<UnitRecord> implements Recor
 
     @Override
     public String component6() {
-        return getBomFileData();
+        return getBomFile();
     }
 
     @Override
@@ -264,7 +264,7 @@ public class UnitRecord extends UpdatableRecordImpl<UnitRecord> implements Recor
 
     @Override
     public String value6() {
-        return getBomFileData();
+        return getBomFile();
     }
 
     @Override
@@ -309,7 +309,7 @@ public class UnitRecord extends UpdatableRecordImpl<UnitRecord> implements Recor
 
     @Override
     public UnitRecord value6(String value) {
-        setBomFileData(value);
+        setBomFile(value);
         return this;
     }
 
@@ -352,7 +352,7 @@ public class UnitRecord extends UpdatableRecordImpl<UnitRecord> implements Recor
     /**
      * Create a detached, initialised UnitRecord
      */
-    public UnitRecord(Long id, Long unitTypeId, String decimalName, LocalDateTime createdAt, LocalDateTime updatedAt, String bomFileData, String bomFileName, String bomFileStatus) {
+    public UnitRecord(Long id, Long unitTypeId, String decimalName, LocalDateTime createdAt, LocalDateTime updatedAt, String bomFile, String bomFileName, String bomFileStatus) {
         super(Unit.UNIT);
 
         set(0, id);
@@ -360,7 +360,7 @@ public class UnitRecord extends UpdatableRecordImpl<UnitRecord> implements Recor
         set(2, decimalName);
         set(3, createdAt);
         set(4, updatedAt);
-        set(5, bomFileData);
+        set(5, bomFile);
         set(6, bomFileName);
         set(7, bomFileStatus);
     }

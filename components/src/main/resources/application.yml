@@ -13,9 +13,10 @@ flyway:
 logging:
   level:
     org.jooq: DEBUG
+    org.example.components: DEBUG
 
 storage:
-  path: "storage/"
+  path: "storage"
 
 frontend:
   url: http://localhost:3000/

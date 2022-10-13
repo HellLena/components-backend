@@ -1,6 +1,7 @@
 package org.example.components.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.components.enumerations.BomFileStatus;
 import org.example.components.handler.ParserHandlerFactory;
 import org.example.components.model.UnitDto;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Comparator;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UnitServiceImpl implements UnitService {
@@ -27,31 +29,32 @@ public class UnitServiceImpl implements UnitService {
     private final FileService fileService;
     private final ParserHandlerFactory parserHandlerFactory;
 
-    private static final String BOM_DIRECTORY = "bom/";
+    private static final String BOM_DIRECTORY = "bom";
 
     @Override
-    public void createUnit(UnitCreateDto unitCreateDto) {
-        unitRepository.create(unitCreateDto);
+    public void create(UnitCreateDto dto) {
+        unitRepository.create(dto);
     }
 
     @Override
-    public List<UnitListDto> getUnits(int page, int pageSize, String sortBy, String orderBy) {
+    public List<UnitListDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
         return unitRepository.findAllPaged(page, pageSize, sortBy, orderBy);
     }
 
     @Override
-    public UnitDto getUnit(Long unitId) {
+    public UnitDto getById(Long unitId) {
         return unitRepository.findById(unitId);
     }
 
     @Override
-    public void updateUnit(Long unitId, UnitCreateDto unitCreateDto) {
-        unitRepository.update(unitId, unitCreateDto);
+    public void update(Long unitId, UnitCreateDto dto) {
+        unitRepository.update(unitId, dto);
     }
 
     @Override
     public void uploadBomFile(Long unitId, MultipartFile file) {
         String filePath = fileService.uploadFile(BOM_DIRECTORY, file);
+        log.debug("File '{}' for unit id={} was stored in path: {}", file.getName(), unitId, filePath);
         unitRepository.updateBomFile(unitId, filePath, file.getName(), BomFileStatus.NEW);
         parseFile(unitId, file);
     }
@@ -60,11 +63,17 @@ public class UnitServiceImpl implements UnitService {
     private void parseFile(Long unitId, MultipartFile file) {
         unitRepository.updateBomFileStatus(unitId, BomFileStatus.PROCESSING);
 
-        List<BomFileData> bomFileData = fileService.parseFile(file, BomFileData.class);
-        BomDataWrapper dataWrapper = new BomDataWrapper(unitId, bomFileData);
-        parserHandlerFactory.getHandlers(BomDataWrapper.class)
-                .stream()
-                .sorted(Comparator.comparing(h -> h.getClass().getAnnotation(Order.class).value()))
-                .forEach(handler -> handler.handle(dataWrapper));
+        try {
+            log.debug("Parsing started for unit id={}, file: {}", unitId, file.getName());
+            List<BomFileData> bomFileData = fileService.parseFile(file, BomFileData.class);
+            BomDataWrapper dataWrapper = new BomDataWrapper(unitId, bomFileData);
+            parserHandlerFactory.getHandlers(BomDataWrapper.class)
+                    .stream()
+                    .sorted(Comparator.comparing(h -> h.getClass().getAnnotation(Order.class).value()))
+                    .forEach(handler -> handler.handle(dataWrapper));
+        } catch (Exception e) {
+            log.error("Error occurred while handling BOM file: ", e);
+            unitRepository.updateBomFileStatus(unitId, BomFileStatus.FAILED);
+        }
     }
 }

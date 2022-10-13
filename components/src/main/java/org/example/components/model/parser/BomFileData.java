@@ -1,28 +1,33 @@
 package org.example.components.model.parser;
 
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvBindByPosition;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@RequiredArgsConstructor
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class BomFileData {
 
-    @CsvBindByName(column = "Designator")
-    private final String designator;
-    @CsvBindByName(column = "BOM_type")
-    private final String bomType;
-    @CsvBindByName(column = "BOM_value")
-    private final String bomValue;
-    @CsvBindByName(column = "BOM_description")
-    private final String bomDescription;
-    @CsvBindByName(column = "BOM_manufacturer")
-    private final String bomManufacturer;
-    @CsvBindByName(column = "Footprint")
-    private final String footprint;
-    @CsvBindByName(column = "Quantity")
-    private final int quantity;
-    @CsvBindByName(column = "Fitted")
-    private final String fitted;
+    @CsvBindByPosition(position = 0)
+    private String designator;
+    @CsvBindByPosition(position = 1)
+    private String bomType;
+    @CsvBindByPosition(position = 2)
+    private String bomValue;
+    @CsvBindByPosition(position = 3)
+    private String bomDescription;
+    @CsvBindByPosition(position = 4)
+    private String bomManufacturer;
+    @CsvBindByPosition(position = 5)
+    private String footprint;
+    @CsvBindByPosition(position = 6)
+    private int quantity;
+    @CsvBindByPosition(position = 7)
+    private String fitted;
 
 }

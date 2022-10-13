@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 public abstract class CommonFileParser<T> implements FileParser<T> {
 
     @Override
-    public List<T> parse(MultipartFile file) {
+    public List<T> parse(MultipartFile file) throws IOException {
         try (Reader reader = new InputStreamReader(file.getInputStream())) {
             CsvToBean<?> csvToBean = new CsvToBeanBuilder<>(reader)
                     .withType(getSupportedType())
@@ -24,9 +25,6 @@ public abstract class CommonFileParser<T> implements FileParser<T> {
                     .build();
 
             return csvToBean.parse().stream().map(obj -> (T) obj).collect(Collectors.toList());
-        } catch (IOException e) {
-            log.error("Error while file parsing: ", e);
-            throw new RuntimeException(e);
         }
     }
 

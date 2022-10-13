@@ -22,7 +22,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Unit extends TableImpl<UnitRecord> {
 
-    private static final long serialVersionUID = -1708955968;
+    private static final long serialVersionUID = -581993767;
 
     /**
      * The reference instance of <code>public.unit</code>
@@ -63,9 +63,9 @@ public class Unit extends TableImpl<UnitRecord> {
     public final TableField<UnitRecord, LocalDateTime> UPDATED_AT = createField(DSL.name("updated_at"), org.jooq.impl.SQLDataType.LOCALDATETIME, this, "");
 
     /**
-     * The column <code>public.unit.bom_file_data</code>.
+     * The column <code>public.unit.bom_file</code>.
      */
-    public final TableField<UnitRecord, String> BOM_FILE_DATA = createField(DSL.name("bom_file_data"), org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<UnitRecord, String> BOM_FILE = createField(DSL.name("bom_file"), org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.unit.bom_file_name</code>.

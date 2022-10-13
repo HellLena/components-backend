@@ -205,7 +205,9 @@
                             <generator>
                                 <database>
                                     <includes>.*</includes>
-                                    <excludes>flyway-schema-history</excludes>
+                                    <excludes>
+                                        flyway_schema_history
+                                    </excludes>
                                     <inputSchema>public</inputSchema>
                                 </database>
                                 <generate>

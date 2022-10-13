@@ -1,6 +1,7 @@
 package org.example.components.handler.bom;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.components.enumerations.CommonStatus;
 import org.example.components.handler.ParserHandler;
 import org.example.components.model.ElementDto;
@@ -24,6 +25,7 @@ import static java.util.Optional.ofNullable;
 import static org.example.components.enumerations.CommonStatus.APPROVED;
 import static org.example.components.enumerations.CommonStatus.MODERATION;
 
+@Slf4j
 @Order(2)
 @Component
 @RequiredArgsConstructor
@@ -42,6 +44,8 @@ public class BomParserHandler implements ParserHandler<BomDataWrapper> {
 
     @Override
     public void handle(BomDataWrapper dataWrapper) {
+        log.debug("BoM parsing started for unit id={}", dataWrapper.getUnitId());
+
         Map<ElementKey, ElementDto> elements = new HashMap<>();
         Map<String, FootprintDto> footprints = new HashMap<>();
         Set<BomCreateDto> boms = dataWrapper.getData().stream()

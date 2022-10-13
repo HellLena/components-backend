@@ -18,17 +18,34 @@ public class UnitTypeRepository {
     private final DSLContext context;
     private final UnitTypeMapper mapper;
 
-    public void create(UnitTypeCreateDto unitTypeCreateDto) {
+    public void create(UnitTypeCreateDto dto) {
         context.insertInto(UNIT_TYPE)
                 .columns(UNIT_TYPE.NAME)
-                .values(unitTypeCreateDto.getName())
+                .values(dto.getName())
                 .execute();
     }
 
 
-    public List<UnitTypeDto> findAll() {
+    public List<UnitTypeDto> findAllPaged(int page, int pageSize, String sortBy, String orderBy) {
         return context
                 .selectFrom(UNIT_TYPE)
+                .orderBy(UNIT_TYPE.NAME.asc()) // TODO: use sortBy, orderBy
+                .offset(page * pageSize)
+                .limit(pageSize)
                 .fetch(mapper::fromRecord);
+    }
+
+    public void update(Long unitTypeId, UnitTypeCreateDto dto) {
+        context
+                .update(UNIT_TYPE)
+                .set(UNIT_TYPE.NAME, dto.getName())
+                .where(UNIT_TYPE.ID.eq(unitTypeId))
+                .execute();
+    }
+
+    public UnitTypeDto findById(Long unitTypeId) {
+        return context.selectFrom(UNIT_TYPE)
+                .where(UNIT_TYPE.ID.eq(unitTypeId))
+                .fetchOne(mapper::fromRecord);
     }
 }

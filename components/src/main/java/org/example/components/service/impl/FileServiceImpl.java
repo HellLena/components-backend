@@ -30,10 +30,12 @@ public class FileServiceImpl implements FileService {
         LocalDate currentDate = LocalDate.now();
         Path path = Path.of(
                 storagePath,
+                directory,
                 String.valueOf(currentDate.getYear()),
                 String.valueOf(currentDate.getMonthValue()),
                 UUID.randomUUID().toString());
         try {
+            log.debug("Trying to store file '{}' in path: {}", file.getName(), path.toAbsolutePath());
             Files.createDirectories(path.getParent());
             Files.createFile(path);
         } catch (IOException e) {
@@ -45,7 +47,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public <T> List<T> parseFile(MultipartFile file, Class<T> dataType) {
+    public <T> List<T> parseFile(MultipartFile file, Class<T> dataType) throws IOException {
         return fileParserFactory.getFileParser(dataType).parse(file);
     }
 

@@ -10,7 +10,6 @@ import java.util.List;
 import org.example.components.domain.tables.Bom;
 import org.example.components.domain.tables.Element;
 import org.example.components.domain.tables.ElementType;
-import org.example.components.domain.tables.FlywaySchemaHistory;
 import org.example.components.domain.tables.Footprint;
 import org.example.components.domain.tables.Manufacturer;
 import org.example.components.domain.tables.Unit;
@@ -27,7 +26,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -522639801;
+    private static final long serialVersionUID = -303039622;
 
     /**
      * The reference instance of <code>public</code>
@@ -48,11 +47,6 @@ public class Public extends SchemaImpl {
      * The table <code>public.element_type</code>.
      */
     public final ElementType ELEMENT_TYPE = ElementType.ELEMENT_TYPE;
-
-    /**
-     * The table <code>public.flyway_schema_history</code>.
-     */
-    public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.footprint</code>.
@@ -105,7 +99,6 @@ public class Public extends SchemaImpl {
             Bom.BOM,
             Element.ELEMENT,
             ElementType.ELEMENT_TYPE,
-            FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Footprint.FOOTPRINT,
             Manufacturer.MANUFACTURER,
             Unit.UNIT,

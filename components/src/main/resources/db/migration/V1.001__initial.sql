@@ -9,7 +9,7 @@ create table unit (
     decimal_name varchar(100) unique not null,
     created_at timestamp not null default current_timestamp,
     updated_at timestamp,
-    bom_file_data varchar(255),
+    bom_file varchar(255),
     bom_file_name varchar(100),
     bom_file_status varchar(25),
     foreign key (unit_type_id) references unit_type(id)

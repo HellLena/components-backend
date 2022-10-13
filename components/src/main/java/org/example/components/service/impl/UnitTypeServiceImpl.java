@@ -16,12 +16,22 @@ public class UnitTypeServiceImpl implements UnitTypeService {
     private final UnitTypeRepository unitTypeRepository;
 
     @Override
-    public void createUnitType(UnitTypeCreateDto unitTypeCreateDto) {
-        unitTypeRepository.create(unitTypeCreateDto);
+    public void create(UnitTypeCreateDto dto) {
+        unitTypeRepository.create(dto);
     }
 
     @Override
-    public List<UnitTypeDto> getUnitTypes() {
-        return unitTypeRepository.findAll();
+    public List<UnitTypeDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
+        return unitTypeRepository.findAllPaged(page, pageSize, sortBy, orderBy);
+    }
+
+    @Override
+    public void update(Long unitTypeId, UnitTypeCreateDto dto) {
+        unitTypeRepository.update(unitTypeId, dto);
+    }
+
+    @Override
+    public UnitTypeDto findById(Long unitTypeId) {
+        return unitTypeRepository.findById(unitTypeId);
     }
 }
