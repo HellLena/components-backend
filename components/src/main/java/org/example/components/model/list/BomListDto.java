@@ -2,6 +2,8 @@ package org.example.components.model.list;
 
 import lombok.*;
 import org.example.components.enumerations.CommonStatus;
+import org.example.components.model.FootprintDto;
+import org.example.components.model.nested.ElementNestedDto;
 
 @Getter
 @Setter
@@ -12,8 +14,8 @@ public class BomListDto {
 
     private Long id;
     private String designator;
-    private String element;
-    private String footprint;
+    private ElementNestedDto element;
+    private FootprintDto footprint;
     private int quantity;
     private boolean fitted;
     private boolean canBeReplaced;

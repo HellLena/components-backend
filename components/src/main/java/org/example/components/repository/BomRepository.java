@@ -101,8 +101,13 @@ public class BomRepository {
         return context.select(
                         BOM.ID,
                         BOM.DESIGNATOR,
-                        ELEMENT.DESCRIPTION,
-                        FOOTPRINT.NAME,
+                        ELEMENT.ID.as("element.id"),
+                        ELEMENT.MANUFACTURER_NUMBER.as("element.manufacturerNumber"),
+                        ELEMENT.DESCRIPTION.as("element.description"),
+                        ELEMENT.STATUS.as("element.status"),
+                        FOOTPRINT.ID.as("footprint.id"),
+                        FOOTPRINT.NAME.as("footprint.name"),
+                        FOOTPRINT.STATUS.as("footprint.status"),
                         BOM.QUANTITY,
                         BOM.FITTED,
                         BOM.CAN_BE_REPLACED,
@@ -114,6 +119,6 @@ public class BomRepository {
                 .orderBy(field("(substring(designator, '[a-zA-Z]+'))::text,  (substring(designator, '[0-9]+'))::int")) // TODO: use sortBy, orderBy
                 .offset(page * pageSize)
                 .limit(pageSize)
-                .fetch(mapper::fromRecord);
+                .fetchInto(BomListDto.class);
     }
 }
