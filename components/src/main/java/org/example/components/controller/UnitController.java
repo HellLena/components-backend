@@ -30,7 +30,7 @@ public class UnitController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить сборочную единицу")
-    public void update(@RequestParam("id") Long unitId,
+    public void update(@PathVariable("id") Long unitId,
                        @RequestBody @Valid UnitCreateDto dto
     ) {
         unitService.update(unitId, dto);
@@ -38,7 +38,7 @@ public class UnitController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить сборочную единицу по id")
-    public UnitDto getById(@RequestParam("id") Long unitId) {
+    public UnitDto getById(@PathVariable("id") Long unitId) {
         return unitService.getById(unitId);
     }
 
@@ -48,9 +48,9 @@ public class UnitController {
             @RequestParam(value = "_start", required = false, defaultValue = "0") int page,
             @RequestParam(value = "_end", required = false, defaultValue = "10") int pageSize,
             @RequestParam(value = "_sort", required = false) String sortBy,
-            @RequestParam(value = "_order", required = false) String orderBy
+            @RequestParam(value = "_order", required = false) String order
     ) {
-        return unitService.getAllPaged(page, pageSize, sortBy, orderBy);
+        return unitService.getAllPaged(page, pageSize, sortBy, order);
     }
 
     @PostMapping(value = "/{id}/bom-upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

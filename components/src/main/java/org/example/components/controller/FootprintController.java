@@ -27,7 +27,7 @@ public class FootprintController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить посадочное место")
-    public void update(@RequestParam("id") Long manufacturerId,
+    public void update(@PathVariable("id") Long manufacturerId,
                        @RequestBody @Valid FootprintCreateDto dto
     ) {
         footprintService.update(manufacturerId, dto);
@@ -35,7 +35,7 @@ public class FootprintController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить посадочное место по id")
-    public FootprintDto getById(@RequestParam("id") Long manufacturerId) {
+    public FootprintDto getById(@PathVariable("id") Long manufacturerId) {
         return footprintService.findById(manufacturerId);
     }
 

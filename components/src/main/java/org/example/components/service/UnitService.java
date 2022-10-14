@@ -11,7 +11,7 @@ public interface UnitService {
 
     void create(UnitCreateDto dto);
 
-    List<UnitListDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy);
+    List<UnitListDto> getAllPaged(int page, int pageSize, String sortBy, String order);
 
     UnitDto getById(Long unitId);
 

@@ -38,8 +38,8 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public List<UnitListDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
-        return unitRepository.findAllPaged(page, pageSize, sortBy, orderBy);
+    public List<UnitListDto> getAllPaged(int page, int pageSize, String sortBy, String order) {
+        return unitRepository.findAllPaged(page, pageSize, sortBy, order);
     }
 
     @Override

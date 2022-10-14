@@ -12,8 +12,11 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
 import static org.example.components.domain.Tables.*;
 import static org.example.components.enumerations.CommonStatus.MODERATION;
+import static org.example.components.utils.RepositoryUtils.getSortedField;
+import static org.jooq.SortOrder.DESC;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,11 +33,13 @@ public class UnitRepository {
     }
 
 
-    public List<UnitListDto> findAllPaged(int page, int pageSize, String sortBy, String orderBy) {
+    public List<UnitListDto> findAllPaged(int page, int pageSize, String sortBy, String order) {
         return context.select(UNIT.ID, UNIT_TYPE.NAME, UNIT.DECIMAL_NAME, UNIT.BOM_FILE_STATUS, UNIT.CREATED_AT)
                 .from(UNIT)
                 .leftJoin(UNIT_TYPE).on(UNIT_TYPE.ID.eq(UNIT.UNIT_TYPE_ID))
-                .orderBy(UNIT.CREATED_AT.desc()) // TODO: use sortBy, orderBy
+                .orderBy(getSortedField(
+                        ofNullable(sortBy).orElse(UNIT.CREATED_AT.getName()),
+                        ofNullable(order).orElse(DESC.name())))
                 .offset(page * pageSize)
                 .limit(pageSize)
                 .fetch(mapper::fromRecord);

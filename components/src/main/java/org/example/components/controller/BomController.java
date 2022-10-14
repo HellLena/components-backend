@@ -29,7 +29,7 @@ public class BomController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить элемент BoM")
-    public void update(@RequestParam("id") Long bomId,
+    public void update(@PathVariable("id") Long bomId,
                        @RequestBody @Valid BomCreateDto dto
     ) {
         bomService.update(bomId, dto);
@@ -37,7 +37,7 @@ public class BomController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить элемент BoM по id")
-    public BomDto getById(@RequestParam("id") Long bomId) {
+    public BomDto getById(@PathVariable("id") Long bomId) {
         return bomService.findById(bomId);
     }
 

@@ -28,7 +28,7 @@ public class ElementController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить элемент")
-    public void update(@RequestParam("id") Long elementTypeId,
+    public void update(@PathVariable("id") Long elementTypeId,
                        @RequestBody @Valid ElementCreateDto dto
     ) {
         elementService.update(elementTypeId, dto);
@@ -36,7 +36,7 @@ public class ElementController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить элемент по id")
-    public ElementDto getById(@RequestParam("id") Long elementTypeId) {
+    public ElementDto getById(@PathVariable("id") Long elementTypeId) {
         return elementService.findById(elementTypeId);
     }
 

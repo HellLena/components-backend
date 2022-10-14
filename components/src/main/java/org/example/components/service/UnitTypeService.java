@@ -9,7 +9,7 @@ public interface UnitTypeService {
 
     void create(UnitTypeCreateDto dto);
 
-    List<UnitTypeDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy);
+    List<UnitTypeDto> getAllPaged(int page, int pageSize, String sortBy, String order);
 
     void update(Long unitTypeId, UnitTypeCreateDto dto);
 

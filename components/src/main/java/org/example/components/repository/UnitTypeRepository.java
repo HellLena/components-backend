@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
 import static org.example.components.domain.Tables.UNIT_TYPE;
+import static org.example.components.utils.RepositoryUtils.getSortedField;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,10 +28,10 @@ public class UnitTypeRepository {
     }
 
 
-    public List<UnitTypeDto> findAllPaged(int page, int pageSize, String sortBy, String orderBy) {
+    public List<UnitTypeDto> findAllPaged(int page, int pageSize, String sortBy, String order) {
         return context
                 .selectFrom(UNIT_TYPE)
-                .orderBy(UNIT_TYPE.NAME.asc()) // TODO: use sortBy, orderBy
+                .orderBy(getSortedField(ofNullable(sortBy).orElse(UNIT_TYPE.NAME.getName()), order))
                 .offset(page * pageSize)
                 .limit(pageSize)
                 .fetch(mapper::fromRecord);

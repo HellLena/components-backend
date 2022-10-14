@@ -27,7 +27,7 @@ public class UnitTypeController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить тип сборочной единицы")
-    public void update(@RequestParam("id") Long unitTypeId,
+    public void update(@PathVariable("id") Long unitTypeId,
                        @RequestBody @Valid UnitTypeCreateDto dto
     ) {
         unitTypeService.update(unitTypeId, dto);
@@ -35,7 +35,7 @@ public class UnitTypeController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить тип сборочной единицы по id")
-    public UnitTypeDto getById(@RequestParam("id") Long unitTypeId) {
+    public UnitTypeDto getById(@PathVariable("id") Long unitTypeId) {
         return unitTypeService.findById(unitTypeId);
     }
 
@@ -45,8 +45,8 @@ public class UnitTypeController {
             @RequestParam(value = "_start", required = false, defaultValue = "0") int page,
             @RequestParam(value = "_end", required = false, defaultValue = "10") int pageSize,
             @RequestParam(value = "_sort", required = false) String sortBy,
-            @RequestParam(value = "_order", required = false) String orderBy
+            @RequestParam(value = "_order", required = false) String order
     ) {
-        return unitTypeService.getAllPaged(page, pageSize, sortBy, orderBy);
+        return unitTypeService.getAllPaged(page, pageSize, sortBy, order);
     }
 }

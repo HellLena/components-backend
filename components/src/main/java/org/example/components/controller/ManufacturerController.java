@@ -28,7 +28,7 @@ public class ManufacturerController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить производителя")
-    public void update(@RequestParam("id") Long manufacturerId,
+    public void update(@PathVariable("id") Long manufacturerId,
                        @RequestBody @Valid UnitTypeCreateDto dto
     ) {
         manufacturerService.update(manufacturerId, dto);
@@ -36,7 +36,7 @@ public class ManufacturerController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить производителя по id")
-    public ManufacturerDto getById(@RequestParam("id") Long manufacturerId) {
+    public ManufacturerDto getById(@PathVariable("id") Long manufacturerId) {
         return manufacturerService.findById(manufacturerId);
     }
 

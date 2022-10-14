@@ -21,8 +21,8 @@ public class UnitTypeServiceImpl implements UnitTypeService {
     }
 
     @Override
-    public List<UnitTypeDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
-        return unitTypeRepository.findAllPaged(page, pageSize, sortBy, orderBy);
+    public List<UnitTypeDto> getAllPaged(int page, int pageSize, String sortBy, String order) {
+        return unitTypeRepository.findAllPaged(page, pageSize, sortBy, order);
     }
 
     @Override
