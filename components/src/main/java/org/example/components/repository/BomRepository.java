@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 import static org.example.components.domain.Tables.*;
+import static org.jooq.impl.DSL.field;
+import static org.jooq.impl.DSL.substring;
 
 @Slf4j
 @Repository
@@ -108,7 +110,8 @@ public class BomRepository {
                 .from(BOM)
                 .leftJoin(ELEMENT).on(ELEMENT.ID.eq(BOM.ELEMENT_ID))
                 .leftJoin(FOOTPRINT).on(FOOTPRINT.ID.eq(BOM.FOOTPRINT_ID))
-                .orderBy(BOM.DESIGNATOR.asc()) // TODO: use sortBy, orderBy
+                .where(BOM.UNIT_ID.eq(unitId))
+                .orderBy(field("(substring(designator, '[a-zA-Z]+'))::text,  (substring(designator, '[0-9]+'))::int")) // TODO: use sortBy, orderBy
                 .offset(page * pageSize)
                 .limit(pageSize)
                 .fetch(mapper::fromRecord);
