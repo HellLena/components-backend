@@ -21,16 +21,16 @@ public class UnitTypeController {
 
     @PostMapping
     @Operation(summary = "Создать тип сборочной единицы")
-    public void create(@RequestBody @Valid UnitTypeCreateDto dto) {
-        unitTypeService.create(dto);
+    public UnitTypeDto create(@RequestBody @Valid UnitTypeCreateDto dto) {
+        return unitTypeService.create(dto);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить тип сборочной единицы")
-    public void update(@PathVariable("id") Long unitTypeId,
-                       @RequestBody @Valid UnitTypeCreateDto dto
+    public UnitTypeDto update(@PathVariable("id") Long unitTypeId,
+                       @RequestBody @Valid UnitTypeDto dto
     ) {
-        unitTypeService.update(unitTypeId, dto);
+        return unitTypeService.update(unitTypeId, dto);
     }
 
     @GetMapping("/{id}")

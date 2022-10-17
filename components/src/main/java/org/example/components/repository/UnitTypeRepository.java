@@ -20,11 +20,13 @@ public class UnitTypeRepository {
     private final DSLContext context;
     private final UnitTypeMapper mapper;
 
-    public void create(UnitTypeCreateDto dto) {
-        context.insertInto(UNIT_TYPE)
+    public UnitTypeDto create(UnitTypeCreateDto dto) {
+        return context.insertInto(UNIT_TYPE)
                 .columns(UNIT_TYPE.NAME)
                 .values(dto.getName())
-                .execute();
+                .returning()
+                .fetchOne()
+                .into(UnitTypeDto.class);
     }
 
 
@@ -37,12 +39,14 @@ public class UnitTypeRepository {
                 .fetch(mapper::fromRecord);
     }
 
-    public void update(Long unitTypeId, UnitTypeCreateDto dto) {
-        context
+    public UnitTypeDto update(Long unitTypeId, UnitTypeDto dto) {
+        return context
                 .update(UNIT_TYPE)
                 .set(UNIT_TYPE.NAME, dto.getName())
                 .where(UNIT_TYPE.ID.eq(unitTypeId))
-                .execute();
+                .returning()
+                .fetchOne()
+                .into(UnitTypeDto.class);
     }
 
     public UnitTypeDto findById(Long unitTypeId) {

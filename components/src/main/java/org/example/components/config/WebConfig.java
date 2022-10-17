@@ -8,13 +8,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.IntFunction;
+import java.util.stream.Collectors;
 
 @EnableWebMvc
 @Configuration
@@ -25,9 +29,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        String[] allowedMethods = Arrays.stream(HttpMethod.values())
+                .map(HttpMethod::name)
+                .toArray(String[]::new);
+
         registry.addMapping("/**")
                 .maxAge(3600)
                 .allowedOrigins(frontendUrl)
+                .allowedMethods(allowedMethods)
                 .exposedHeaders("Access-Control-Allow-Origin", "X-Total-Count");
     }
 

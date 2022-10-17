@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface UnitTypeService {
 
-    void create(UnitTypeCreateDto dto);
+    UnitTypeDto create(UnitTypeCreateDto dto);
 
     List<UnitTypeDto> getAllPaged(int page, int pageSize, String sortBy, String order);
 
-    void update(Long unitTypeId, UnitTypeCreateDto dto);
+    UnitTypeDto update(Long unitTypeId, UnitTypeDto dto);
 
     UnitTypeDto findById(Long unitTypeId);
 }

@@ -16,8 +16,8 @@ public class UnitTypeServiceImpl implements UnitTypeService {
     private final UnitTypeRepository unitTypeRepository;
 
     @Override
-    public void create(UnitTypeCreateDto dto) {
-        unitTypeRepository.create(dto);
+    public UnitTypeDto create(UnitTypeCreateDto dto) {
+        return unitTypeRepository.create(dto);
     }
 
     @Override
@@ -26,8 +26,8 @@ public class UnitTypeServiceImpl implements UnitTypeService {
     }
 
     @Override
-    public void update(Long unitTypeId, UnitTypeCreateDto dto) {
-        unitTypeRepository.update(unitTypeId, dto);
+    public UnitTypeDto update(Long unitTypeId, UnitTypeDto dto) {
+        return unitTypeRepository.update(unitTypeId, dto);
     }
 
     @Override
