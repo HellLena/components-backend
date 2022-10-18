@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.components.enumerations.BomFileStatus;
+import org.example.components.model.UnitTypeDto;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 public class UnitListDto {
 
     private Long id;
-    private String unitType;
+    private UnitTypeDto unitType;
     private String decimalName;
     private BomFileStatus bomFileStatus;
     private LocalDateTime createdAt;

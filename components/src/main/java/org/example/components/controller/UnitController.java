@@ -9,6 +9,7 @@ import org.example.components.model.create.UnitCreateDto;
 import org.example.components.model.list.UnitListDto;
 import org.example.components.service.UnitService;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,10 +34,11 @@ public class UnitController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить сборочную единицу")
-    public void update(@PathVariable("id") Long unitId,
-                       @RequestBody @Valid UnitCreateDto dto
+    public UnitDto update(@PathVariable("id") Long unitId,
+                                 @RequestBody @Valid UnitCreateDto dto
     ) {
         unitService.update(unitId, dto);
+        return unitService.getById(unitId);
     }
 
     @GetMapping("/{id}")
