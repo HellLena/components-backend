@@ -1,6 +1,7 @@
 package org.example.components.service;
 
 import org.example.components.model.ElementTypeDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.ElementTypeCreateDto;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface ElementTypeService {
 
     ElementTypeDto findById(Long elementTypeId);
 
-    List<ElementTypeDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy);
+    List<ElementTypeDto> getAllPaged(SearchRequest request);
 }

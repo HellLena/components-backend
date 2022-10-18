@@ -1,6 +1,7 @@
 package org.example.components.service;
 
 import org.example.components.model.FootprintDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.FootprintCreateDto;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface FootprintService {
 
     FootprintDto findById(Long manufacturerId);
 
-    List<FootprintDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy);
+    List<FootprintDto> getAllPaged(SearchRequest request);
 }

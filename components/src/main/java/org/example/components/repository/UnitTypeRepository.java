@@ -1,7 +1,9 @@
 package org.example.components.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.example.components.mapper.UnitTypeMapper;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.UnitTypeDto;
 import org.example.components.model.create.UnitTypeCreateDto;
 import org.jooq.DSLContext;
@@ -30,12 +32,16 @@ public class UnitTypeRepository {
     }
 
 
-    public List<UnitTypeDto> findAllPaged(int page, int pageSize, String sortBy, String order) {
+    public List<UnitTypeDto> findAllPaged(SearchRequest request) {
         return context
                 .selectFrom(UNIT_TYPE)
-                .orderBy(getSortedField(ofNullable(sortBy).orElse(UNIT_TYPE.NAME.getName()), order))
-                .offset(page * pageSize)
-                .limit(pageSize)
+                .where(StringUtils.isBlank(request.getQuery())
+                        ? null : UNIT_TYPE.NAME.likeIgnoreCase("%" + request.getQuery().trim() + "%"))
+                .orderBy(getSortedField(
+                        ofNullable(request.getSortBy()).orElse(UNIT_TYPE.NAME.getName()),
+                        request.getOrder()))
+                .offset(request.getPage() * request.getPageSize())
+                .limit(request.getPageSize())
                 .fetch(mapper::fromRecord);
     }
 

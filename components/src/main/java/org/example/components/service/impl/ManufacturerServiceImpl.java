@@ -2,6 +2,7 @@ package org.example.components.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.components.model.ManufacturerDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.ManufacturerCreateDto;
 import org.example.components.model.create.UnitTypeCreateDto;
 import org.example.components.repository.ManufacturerRepository;
@@ -44,7 +45,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
-    public List<ManufacturerDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
-        return manufacturerRepository.getAllPaged(page, pageSize, sortBy, orderBy);
+    public List<ManufacturerDto> getAllPaged(SearchRequest request) {
+        return manufacturerRepository.getAllPaged(request);
     }
 }

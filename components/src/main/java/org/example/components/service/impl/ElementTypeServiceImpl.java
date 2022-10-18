@@ -2,6 +2,7 @@ package org.example.components.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.components.model.ElementTypeDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.ElementTypeCreateDto;
 import org.example.components.repository.ElementTypeRepository;
 import org.example.components.service.ElementTypeService;
@@ -43,7 +44,7 @@ public class ElementTypeServiceImpl implements ElementTypeService {
     }
 
     @Override
-    public List<ElementTypeDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
-        return elementTypeRepository.findAllPaged(page, pageSize, sortBy, orderBy);
+    public List<ElementTypeDto> getAllPaged(SearchRequest request) {
+        return elementTypeRepository.findAllPaged(request);
     }
 }

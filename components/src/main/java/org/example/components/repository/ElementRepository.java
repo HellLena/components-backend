@@ -6,6 +6,7 @@ import org.example.components.domain.tables.records.ElementRecord;
 import org.example.components.mapper.ElementMapper;
 import org.example.components.model.ElementDto;
 import org.example.components.model.ElementKey;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.ElementCreateDto;
 import org.example.components.model.list.ElementListDto;
 import org.jooq.DSLContext;
@@ -98,7 +99,7 @@ public class ElementRepository {
                 .fetchOne(mapper::fromRecord);
     }
 
-    public List<ElementListDto> findAllPaged(int page, int pageSize, String sortBy, String orderBy) {
+    public List<ElementListDto> findAllPaged(SearchRequest request) {
         return context.select(
                         ELEMENT.ID,
                         ELEMENT_TYPE.NAME,
@@ -110,8 +111,8 @@ public class ElementRepository {
                 .leftJoin(ELEMENT_TYPE).on(ELEMENT_TYPE.ID.eq(ELEMENT.ELEMENT_TYPE_ID))
                 .leftJoin(MANUFACTURER).on(MANUFACTURER.ID.eq(ELEMENT.MANUFACTURER_ID))
                 .orderBy(ELEMENT_TYPE.NAME.asc(), ELEMENT.MANUFACTURER_NUMBER.asc(), ELEMENT.DESCRIPTION.asc()) // TODO: use sortBy, orderBy
-                .offset(page * pageSize)
-                .limit(pageSize)
+                .offset(request.getPage() * request.getPageSize())
+                .limit(request.getPageSize())
                 .fetch(mapper::fromRecord);
     }
 }

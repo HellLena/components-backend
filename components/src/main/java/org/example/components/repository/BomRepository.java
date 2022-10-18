@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.components.domain.tables.records.BomRecord;
 import org.example.components.mapper.BomMapper;
 import org.example.components.model.BomDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.BomCreateDto;
 import org.example.components.model.list.BomListDto;
 import org.jooq.DSLContext;
@@ -16,7 +17,6 @@ import java.util.Set;
 
 import static org.example.components.domain.Tables.*;
 import static org.jooq.impl.DSL.field;
-import static org.jooq.impl.DSL.substring;
 
 @Slf4j
 @Repository
@@ -97,7 +97,7 @@ public class BomRepository {
                 .fetchOne(mapper::fromRecord);
     }
 
-    public List<BomListDto> findAllPaged(int page, int pageSize, String sortBy, String orderBy, Long unitId) {
+    public List<BomListDto> findAllPaged(Long unitId, SearchRequest request) {
         return context.select(
                         BOM.ID,
                         BOM.DESIGNATOR,
@@ -117,8 +117,8 @@ public class BomRepository {
                 .leftJoin(FOOTPRINT).on(FOOTPRINT.ID.eq(BOM.FOOTPRINT_ID))
                 .where(BOM.UNIT_ID.eq(unitId))
                 .orderBy(field("(substring(designator, '[a-zA-Z]+'))::text,  (substring(designator, '[0-9]+'))::int")) // TODO: use sortBy, orderBy
-                .offset(page * pageSize)
-                .limit(pageSize)
+                .offset(request.getPage() * request.getPageSize())
+                .limit(request.getPageSize())
                 .fetchInto(BomListDto.class);
     }
 }

@@ -3,6 +3,7 @@ package org.example.components.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.example.components.mapper.SearchRequestMapper;
 import org.example.components.model.ElementTypeDto;
 import org.example.components.model.create.ElementTypeCreateDto;
 import org.example.components.service.ElementTypeService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/element-types")
@@ -18,6 +20,7 @@ import java.util.List;
 public class ElementTypeController {
 
     private final ElementTypeService elementTypeService;
+    private final SearchRequestMapper mapper;
 
     @PostMapping
     @Operation(summary = "Создать тип элемента")
@@ -41,12 +44,7 @@ public class ElementTypeController {
 
     @GetMapping
     @Operation(summary = "Получить список всех типов элементов постранично")
-    public List<ElementTypeDto> getAllPaged(
-            @RequestParam(value = "_start", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "_end", required = false, defaultValue = "10") int pageSize,
-            @RequestParam(value = "_sort", required = false) String sortBy,
-            @RequestParam(value = "_order", required = false) String orderBy
-    ) {
-        return elementTypeService.getAllPaged(page, pageSize, sortBy, orderBy);
+    public List<ElementTypeDto> getAllPaged(@RequestParam(required = false) Map<String, String> request) {
+        return elementTypeService.getAllPaged(mapper.toSearchRequest(request));
     }
 }

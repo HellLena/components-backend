@@ -1,6 +1,7 @@
 package org.example.components.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.UnitTypeDto;
 import org.example.components.model.create.UnitTypeCreateDto;
 import org.example.components.repository.UnitTypeRepository;
@@ -21,8 +22,8 @@ public class UnitTypeServiceImpl implements UnitTypeService {
     }
 
     @Override
-    public List<UnitTypeDto> getAllPaged(int page, int pageSize, String sortBy, String order) {
-        return unitTypeRepository.findAllPaged(page, pageSize, sortBy, order);
+    public List<UnitTypeDto> getAllPaged(SearchRequest request) {
+        return unitTypeRepository.findAllPaged(request);
     }
 
     @Override

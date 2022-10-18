@@ -2,6 +2,7 @@ package org.example.components.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.components.model.FootprintDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.FootprintCreateDto;
 import org.example.components.repository.FootprintRepository;
 import org.example.components.service.FootprintService;
@@ -43,7 +44,7 @@ public class FootprintServiceImpl implements FootprintService {
     }
 
     @Override
-    public List<FootprintDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
-        return footprintRepository.findAllPaged(page, pageSize, sortBy, orderBy);
+    public List<FootprintDto> getAllPaged(SearchRequest request) {
+        return footprintRepository.findAllPaged(request);
     }
 }

@@ -3,6 +3,7 @@ package org.example.components.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.example.components.mapper.SearchRequestMapper;
 import org.example.components.model.ManufacturerDto;
 import org.example.components.model.create.ManufacturerCreateDto;
 import org.example.components.model.create.UnitTypeCreateDto;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/manufacturers")
@@ -19,6 +21,7 @@ import java.util.List;
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
+    private final SearchRequestMapper mapper;
 
     @PostMapping
     @Operation(summary = "Создать производителя")
@@ -42,12 +45,7 @@ public class ManufacturerController {
 
     @GetMapping
     @Operation(summary = "Получить список всех производителей постранично")
-    public List<ManufacturerDto> getAllPaged(
-            @RequestParam(value = "_start", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "_end", required = false, defaultValue = "10") int pageSize,
-            @RequestParam(value = "_sort", required = false) String sortBy,
-            @RequestParam(value = "_order", required = false) String orderBy
-    ) {
-        return manufacturerService.getAllPaged(page, pageSize, sortBy, orderBy);
+    public List<ManufacturerDto> getAllPaged(@RequestParam(required = false) Map<String, String> request) {
+        return manufacturerService.getAllPaged(mapper.toSearchRequest(request));
     }
 }

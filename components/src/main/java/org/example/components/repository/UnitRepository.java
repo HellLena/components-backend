@@ -3,6 +3,7 @@ package org.example.components.repository;
 import lombok.RequiredArgsConstructor;
 import org.example.components.enumerations.BomFileStatus;
 import org.example.components.mapper.UnitMapper;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.UnitDto;
 import org.example.components.model.create.UnitCreateDto;
 import org.example.components.model.list.UnitListDto;
@@ -33,22 +34,26 @@ public class UnitRepository {
     }
 
 
-    public List<UnitListDto> findAllPaged(int page, int pageSize, String sortBy, String order) {
+    public List<UnitListDto> findAllPaged(SearchRequest request) {
         return context.select(UNIT.ID, UNIT_TYPE.NAME, UNIT.DECIMAL_NAME, UNIT.BOM_FILE_STATUS, UNIT.CREATED_AT)
                 .from(UNIT)
                 .leftJoin(UNIT_TYPE).on(UNIT_TYPE.ID.eq(UNIT.UNIT_TYPE_ID))
                 .orderBy(getSortedField(
-                        ofNullable(sortBy).orElse(UNIT.CREATED_AT.getName()),
-                        ofNullable(order).orElse(DESC.name())))
-                .offset(page * pageSize)
-                .limit(pageSize)
+                        ofNullable(request.getSortBy()).orElse(UNIT.CREATED_AT.getName()),
+                        ofNullable(request.getOrder()).orElse(DESC)))
+                .offset(request.getPage() * request.getPageSize())
+                .limit(request.getPageSize())
                 .fetch(mapper::fromRecord);
     }
 
     public UnitDto findById(Long unitId) {
-        return context.selectFrom(UNIT)
+        return context.select(UNIT.asterisk(),
+                        UNIT_TYPE.ID.as("unitType.id"),
+                        UNIT_TYPE.NAME.as("unitType.name"))
+                .from(UNIT)
+                .leftJoin(UNIT_TYPE).on(UNIT_TYPE.ID.eq(UNIT.UNIT_TYPE_ID))
                 .where(UNIT.ID.eq(unitId))
-                .fetchOne(mapper::fromRecord);
+                .fetchOneInto(UnitDto.class);
     }
 
     public void update(Long unitId, UnitCreateDto dto) {

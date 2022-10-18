@@ -1,6 +1,7 @@
 package org.example.components.service;
 
 import org.example.components.model.ManufacturerDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.ManufacturerCreateDto;
 import org.example.components.model.create.UnitTypeCreateDto;
 
@@ -17,5 +18,5 @@ public interface ManufacturerService {
 
     ManufacturerDto findById(Long manufacturerId);
 
-    List<ManufacturerDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy);
+    List<ManufacturerDto> getAllPaged(SearchRequest request);
 }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.components.domain.tables.records.ElementTypeRecord;
 import org.example.components.mapper.ElementTypeMapper;
 import org.example.components.model.ElementTypeDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.ElementTypeCreateDto;
 import org.jooq.DSLContext;
 import org.jooq.InsertValuesStep1;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Set;
 
+import static java.util.Optional.ofNullable;
 import static org.example.components.domain.Tables.ELEMENT_TYPE;
+import static org.example.components.utils.RepositoryUtils.getSortedField;
 
 @Slf4j
 @Repository
@@ -65,12 +68,14 @@ public class ElementTypeRepository {
                 .fetchOne(mapper::fromRecord);
     }
 
-    public List<ElementTypeDto> findAllPaged(int page, int pageSize, String sortBy, String orderBy) {
+    public List<ElementTypeDto> findAllPaged(SearchRequest request) {
         return context
                 .selectFrom(ELEMENT_TYPE)
-                .orderBy(ELEMENT_TYPE.NAME.asc()) // TODO: use sortBy, orderBy
-                .offset(page * pageSize)
-                .limit(pageSize)
+                .orderBy(getSortedField(
+                        ofNullable(request.getSortBy()).orElse(ELEMENT_TYPE.NAME.getName()),
+                        request.getOrder()))
+                .offset(request.getPage() * request.getPageSize())
+                .limit(request.getPageSize())
                 .fetch(mapper::fromRecord);
     }
 }

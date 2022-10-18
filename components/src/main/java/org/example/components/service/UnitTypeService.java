@@ -1,5 +1,6 @@
 package org.example.components.service;
 
+import org.example.components.model.SearchRequest;
 import org.example.components.model.UnitTypeDto;
 import org.example.components.model.create.UnitTypeCreateDto;
 
@@ -9,7 +10,7 @@ public interface UnitTypeService {
 
     UnitTypeDto create(UnitTypeCreateDto dto);
 
-    List<UnitTypeDto> getAllPaged(int page, int pageSize, String sortBy, String order);
+    List<UnitTypeDto> getAllPaged(SearchRequest request);
 
     UnitTypeDto update(Long unitTypeId, UnitTypeDto dto);
 

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.components.domain.tables.records.ManufacturerRecord;
 import org.example.components.mapper.ManufacturerMapper;
 import org.example.components.model.ManufacturerDto;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.create.ManufacturerCreateDto;
 import org.example.components.model.create.UnitTypeCreateDto;
 import org.jooq.DSLContext;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Set;
 
+import static java.util.Optional.ofNullable;
 import static org.example.components.domain.Tables.MANUFACTURER;
+import static org.example.components.utils.RepositoryUtils.getSortedField;
 
 @Slf4j
 @Repository
@@ -66,12 +69,14 @@ public class ManufacturerRepository {
                 .fetchOne(mapper::fromRecord);
     }
 
-    public List<ManufacturerDto> getAllPaged(int page, int pageSize, String sortBy, String orderBy) {
+    public List<ManufacturerDto> getAllPaged(SearchRequest request) {
         return context
                 .selectFrom(MANUFACTURER)
-                .orderBy(MANUFACTURER.NAME.asc()) // TODO: use sortBy, orderBy
-                .offset(page * pageSize)
-                .limit(pageSize)
+                .orderBy(getSortedField(
+                        ofNullable(request.getSortBy()).orElse(MANUFACTURER.NAME.getName()),
+                        request.getOrder()))
+                .offset(request.getPage() * request.getPageSize())
+                .limit(request.getPageSize())
                 .fetch(mapper::fromRecord);
     }
 }

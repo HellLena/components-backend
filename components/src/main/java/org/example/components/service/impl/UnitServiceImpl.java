@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.components.enumerations.BomFileStatus;
 import org.example.components.handler.ParserHandlerFactory;
+import org.example.components.model.SearchRequest;
 import org.example.components.model.UnitDto;
 import org.example.components.model.create.UnitCreateDto;
 import org.example.components.model.list.UnitListDto;
@@ -17,7 +18,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -38,8 +38,8 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public List<UnitListDto> getAllPaged(int page, int pageSize, String sortBy, String order) {
-        return unitRepository.findAllPaged(page, pageSize, sortBy, order);
+    public List<UnitListDto> getAllPaged(SearchRequest request) {
+        return unitRepository.findAllPaged(request);
     }
 
     @Override

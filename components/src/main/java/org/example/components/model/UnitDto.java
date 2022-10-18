@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class UnitDto {
 
     private Long id;
-    private Long unitTypeId;
+    private UnitTypeDto unitType;
     private String decimalName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
